@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "DWZ Konfiguration",
-        "description": "Gib die NuLiga‑ID des Spielers ein. Du findest sie über die DWZ‑Suche: https://www.schachbund.de/dwz-spieler.html. In den Suchergebnissen sind Links enthalten, z.B. https://www.schachbund.de/dwz-spieler/NU4168433.html — kopiere die ID (z.B. 'NU4168433').",
+        "description": "Gib die nuLiga‑ID des Spielers ein. Du findest sie über die DWZ‑Suche: {help_link}. In den Suchergebnissen sind Links enthalten — kopiere die ID (z.B. 'NU4168433').",
         "data": {
           "nuliga_id": {
             "title": "NuLiga‑ID",

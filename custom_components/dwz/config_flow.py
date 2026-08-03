@@ -25,8 +25,13 @@ class DWZConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         """Config flow for DWZ."""
         errors: dict[str, str] = {}
 
+        help_url = "https://www.schachbund.de/dwz-spieler.html"
         if user_input is None:
-            return self.async_show_form(step_id="user", data_schema=self._get_schema())
+            return self.async_show_form(
+                step_id="user",
+                data_schema=self._get_schema(),
+                description_placeholders={"help_link": help_url},
+            )
 
         # attempt to validate the provided nuliga id via a temporary client
         nuliga_id = user_input.get(CONF_NULIGA_ID)
@@ -40,25 +45,37 @@ class DWZConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             # missing optional dependency (dwzclient)
             errors["base"] = "missing_dependency"
             return self.async_show_form(
-                step_id="user", data_schema=self._get_schema(), errors=errors
+                step_id="user",
+                data_schema=self._get_schema(),
+                errors=errors,
+                description_placeholders={"help_link": help_url},
             )
         except DWZError:
             # DWZ client indicates the player/id was not found or invalid
             errors[CONF_NULIGA_ID] = "not_found"
             return self.async_show_form(
-                step_id="user", data_schema=self._get_schema(), errors=errors
+                step_id="user",
+                data_schema=self._get_schema(),
+                errors=errors,
+                description_placeholders={"help_link": help_url},
             )
         except TimeoutError, aiohttp.ClientError:
             # network / client errors (e.g. connection problems, timeouts)
             errors["base"] = "cannot_connect"
             return self.async_show_form(
-                step_id="user", data_schema=self._get_schema(), errors=errors
+                step_id="user",
+                data_schema=self._get_schema(),
+                errors=errors,
+                description_placeholders={"help_link": help_url},
             )
 
         if not person:
             errors[CONF_NULIGA_ID] = "not_found"
             return self.async_show_form(
-                step_id="user", data_schema=self._get_schema(), errors=errors
+                step_id="user",
+                data_schema=self._get_schema(),
+                errors=errors,
+                description_placeholders={"help_link": help_url},
             )
         # Register unique id for this flow and prevent duplicate entries.
         await self.async_set_unique_id(nuliga_id)
