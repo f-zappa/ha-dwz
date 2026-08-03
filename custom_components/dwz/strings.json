@@ -1,0 +1,22 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "DWZ Configuration",
+        "description": "Enter the NuLiga ID of the player. You can find it via the DWZ search: https://www.schachbund.de/dwz-spieler.html. Search results include links that contain the NuLiga ID, e.g. https://www.schachbund.de/dwz-spieler/NU4168433.html — copy the ID (e.g. 'NU4168433').",
+        "data": {
+          "nuliga_id": {
+            "title": "NuLiga ID",
+            "description": "Example: NU4168433 (including the 'NU' prefix)."
+          }
+        }
+      }
+    }
+    ,
+    "error": {
+      "cannot_connect": "Unable to connect to the DWZ service. Please check your network and try again.",
+      "missing_dependency": "Required dependency missing (dwzclient). Please install the integration dependencies.",
+      "not_found": "No player found for the given NuLiga ID. Please verify the ID and try again."
+    }
+  }
+}

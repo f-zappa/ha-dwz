@@ -1,60 +1,41 @@
-# Notice
+# DWZ (Schachbund) — Home Assistant Integration
 
-The component and platforms in this repository are not meant to be used by a
-user, but as a "blueprint" that custom component developers can build
-upon, to make more awesome stuff.
+Diese Integration stellt DWZ‑Daten (Deutscher Schachbund) als Home‑Assistant‑Sensoren bereit.
 
-HAVE FUN! 😎
+## Was es liefert
+- Ein Sensor pro Konfigurationseintrag (pro Spieler/NU‑ID).
+- Sensor‑State: die aktuelle DWZ‑Bewertung (`rating`).
+- Weiteren Werte werden als Entity‑Attribute bereitgestellt:
+  - `rating`: Die aktuelle DWZ (identisch mit dem `state`)
+  - `rating_week`: Woche der letzten Auswertung (z.B. "202617"); wie in der Datenquelle
+  - `rating_date`: letzter Tag dieser Woche im ISO-Format YYYY-MM-DD
+  - `index`: Laufende Nummer der aktuellen DWZ-Auswertung
+  - `active_club`: Im Deutschen Schachbund (DSB) darf eine Person nur eine einzige Spielberechtigung besitzen. Nur diese wird angezeigt.
+  - `firstname`: Vorname des Spielers
+  - `lastname`: Nachname des Spielers
+  - `full_name`: Voller Name des Spielers
+  - `gender`: Geschlecht (`MALE|FEMALE`)
+  - `birth_year`: Geburtsjahr des Spielers
+  - `fide_id`: FIDE-ID (falls vorhanden)
+  - `nuliga_id`: Die nuLiga-ID des Spielers
 
-## Why?
 
-This is simple, by having custom_components look (README + structure) the same
-it is easier for developers to help each other and for users to start using them.
+## Installation
+### Via HACS
 
-If you are a developer and you want to add things to this "blueprint" that you think more
-developers will have use for, please open a PR to add it :)
+1. Öffne HACS → Integrationen.
+2. Klicke auf die drei Punkte oben rechts → "Custom repositories".
+3. Wähle `Integration` als Kategorie und füge das Repository `f-zappa/ha-dwz` hinzu.
+4. Suche in HACS nach "DWZ (Schachbund)" und installiere die Integration.
+5. Nach Installation Home Assistant neu starten und die Integration über Einstellungen → Integrationen hinzufügen.
 
-## What?
+Hinweis: HACS ermöglicht automatische Updates und vereinfacht die Installation für Endnutzer.
 
-This repository contains multiple files, here is a overview:
+### Manuell (Entwickler / lokale Installation)
+1. Kopiere das Verzeichnis `custom_components/dwz` in dein HA‑`custom_components` Ordner.
+2. Starte Home Assistant neu oder lade die Integration über die UI neu.
 
-File | Purpose | Documentation
--- | -- | --
-`.devcontainer.json` | Used for development/testing with Visual Studio Code. | [Documentation](https://code.visualstudio.com/docs/remote/containers)
-`.github/renovate.json` | Dependency update configuration for Renovate (enabled by default). | [Documentation](https://docs.renovatebot.com/configuration-options/)
-`.github/_dependabot.yml` | Dependency update configuration for Dependabot (disabled, see "Dependency updates" below). | [Documentation](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file)
-`.github/ISSUE_TEMPLATE/*.yml` | Templates for the issue tracker | [Documentation](https://help.github.com/en/github/building-a-strong-community/configuring-issue-templates-for-your-repository)
-`custom_components/integration_blueprint/*` | Integration files, this is where everything happens. | [Documentation](https://developers.home-assistant.io/docs/creating_component_index)
-`CONTRIBUTING.md` | Guidelines on how to contribute. | [Documentation](https://help.github.com/en/github/building-a-strong-community/setting-guidelines-for-repository-contributors)
-`LICENSE` | The license file for the project. | [Documentation](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/licensing-a-repository)
-`README.md` | The file you are reading now, should contain info about the integration, installation and configuration instructions. | [Documentation](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax)
-`requirements_dev.txt` | Python packages used for development/testing this integration (also installs lint tooling via `requirements_lint.txt`). | [Documentation](https://pip.pypa.io/en/stable/user_guide/#requirements-files)
-`requirements_lint.txt` | Python packages used to lint this integration (installed by the Lint CI job). | [Documentation](https://pip.pypa.io/en/stable/user_guide/#requirements-files)
-`requirements_common.txt` | Python packages common to CI and local dev, installed first so any pip upgrade completes before other dependencies (e.g. a modern pip). | [Documentation](https://pip.pypa.io/en/stable/user_guide/#requirements-files)
-
-## Dependency updates
-
-This template ships with configuration for **two** dependency update tools. Pick
-**one** and remove or disable the other:
-
-- **Renovate** (`.github/renovate.json`) is enabled by default.
-- **Dependabot** (`.github/_dependabot.yml`) is included but disabled — the `_`
-  prefix means GitHub ignores it. To use Dependabot instead, rename the file
-  back to `.github/dependabot.yml` and delete `.github/renovate.json`.
-
-## How?
-
-1. Create a new repository in GitHub, using this repository as a template by clicking the "Use this template" button in the GitHub UI.
-1. Open your new repository in Visual Studio Code devcontainer (Preferably with the "`Dev Containers: Clone Repository in Named Container Volume...`" option).
-1. Rename all instances of the `integration_blueprint` to `custom_components/<your_integration_domain>` (e.g. `custom_components/awesome_integration`).
-1. Rename all instances of the `Integration Blueprint` to `<Your Integration Name>` (e.g. `Awesome Integration`).
-1. Run the `scripts/develop` to start HA and test out your new integration.
-
-## Next steps
-
-These are some next steps you may want to look into:
-- Add tests to your integration, [`pytest-homeassistant-custom-component`](https://github.com/MatthewFlamm/pytest-homeassistant-custom-component) can help you get started.
-- Add brand images (logo/icon).
-- Create your first release.
-- Share your integration on the [Home Assistant Forum](https://community.home-assistant.io/).
-- Submit your integration to [HACS](https://hacs.xyz/docs/publish/start).
+## Konfiguration
+- Integration → Integration hinzufügen → `DWZ (Schachbund)`.
+- In der Konfigurationsoberfläche die `NU`‑ID angeben (z. B. `NU4168433`).
+- Die Config‑Flow validiert IDs und zeigt hilfreiche Fehlermeldungen (z. B. `not_found`).

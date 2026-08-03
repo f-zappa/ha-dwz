@@ -1,0 +1,92 @@
+"""Config flow for DWZ integration (very small, UI-friendly)."""
+
+from __future__ import annotations
+
+from typing import Any
+
+from dwzclient import DWZError
+from homeassistant import config_entries
+from voluptuous import Required, Schema
+
+from .client import async_get_dwzclient
+from .const import CONF_NULIGA_ID, DOMAIN
+from .helpers import extract_person_attributes
+
+
+class DWZConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+    """Simple config flow allowing entering a Nuliga ID for the sensor."""
+
+    VERSION = 1
+
+    async def async_step_user(
+        self, user_input: dict[str, Any] | None = None
+    ) -> config_entries.ConfigFlowResult:
+        """Config flow for DWZ."""
+        errors: dict[str, str] = {}
+
+        if user_input is None:
+            return self.async_show_form(step_id="user", data_schema=self._get_schema())
+
+        # attempt to validate the provided nuliga id via a temporary client
+        nuliga_id = user_input.get(CONF_NULIGA_ID)
+        try:
+            # do not store a shared client from the config flow; if a shared
+            # client already exists it will be returned, otherwise a fresh
+            # client instance is created for validation and not saved.
+            client: Any = await async_get_dwzclient(self.hass, store=False)
+            person: Any = await client.get_person(nuliga_id)
+        except RuntimeError:
+            # missing optional dependency (dwzclient)
+            errors["base"] = "missing_dependency"
+            return self.async_show_form(
+                step_id="user", data_schema=self._get_schema(), errors=errors
+            )
+        except DWZError:
+            # DWZ client indicates the player/id was not found or invalid
+            errors[CONF_NULIGA_ID] = "not_found"
+            return self.async_show_form(
+                step_id="user", data_schema=self._get_schema(), errors=errors
+            )
+        except Exception:
+            # network/other unexpected error
+            errors["base"] = "cannot_connect"
+            return self.async_show_form(
+                step_id="user", data_schema=self._get_schema(), errors=errors
+            )
+
+        if not person:
+            errors[CONF_NULIGA_ID] = "not_found"
+            return self.async_show_form(
+                step_id="user", data_schema=self._get_schema(), errors=errors
+            )
+        # Register unique id for this flow and prevent duplicate entries.
+        await self.async_set_unique_id(nuliga_id)
+        self._async_abort_entries_match({CONF_NULIGA_ID: nuliga_id})
+
+        # choose a sensible title: prefer the fetched full name, fall back
+        # to a stable `dwz_<id>` placeholder so the entity_id is
+        # predictable.
+        attrs = extract_person_attributes(person or {})
+        title_name = attrs.get("full_name") or nuliga_id
+        title = f"DWZ {title_name}"
+
+        # suggest an icon based on gender so Home Assistant stores it as
+        # the original icon when the entity is created
+        gender = attrs.get("gender")
+        if gender == "MALE":
+            icon = "mdi:chess-king"
+        elif gender == "FEMALE":
+            icon = "mdi:chess-queen"
+        else:
+            icon = "mdi:chess-pawn"
+
+        data = {**user_input, "icon": icon}
+
+        return self.async_create_entry(title=title, data=data)
+
+    def _get_schema(self) -> Schema | None:
+        try:
+            return Schema({Required(CONF_NULIGA_ID): str})
+        except Exception:
+            # fallback for environments without voluptuous in this scaffold
+            return None
