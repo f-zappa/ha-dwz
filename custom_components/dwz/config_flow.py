@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+import aiohttp
 from dwzclient import DWZError
 from homeassistant import config_entries
 from voluptuous import Required, Schema
@@ -47,8 +48,8 @@ class DWZConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             return self.async_show_form(
                 step_id="user", data_schema=self._get_schema(), errors=errors
             )
-        except Exception:
-            # network/other unexpected error
+        except TimeoutError, aiohttp.ClientError:
+            # network / client errors (e.g. connection problems, timeouts)
             errors["base"] = "cannot_connect"
             return self.async_show_form(
                 step_id="user", data_schema=self._get_schema(), errors=errors
@@ -84,9 +85,5 @@ class DWZConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         return self.async_create_entry(title=title, data=data)
 
-    def _get_schema(self) -> Schema | None:
-        try:
-            return Schema({Required(CONF_NULIGA_ID): str})
-        except Exception:
-            # fallback for environments without voluptuous in this scaffold
-            return None
+    def _get_schema(self) -> Schema:
+        return Schema({Required(CONF_NULIGA_ID): str})
