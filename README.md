@@ -1,41 +1,50 @@
-# DWZ (Schachbund) — Home Assistant Integration
+# DWZ (German Chess Federation) Rating — Home Assistant integration ♟️
 
-Diese Integration stellt DWZ‑Daten (Deutscher Schachbund) als Home‑Assistant‑Sensoren bereit.
+This integration exposes DWZ data (Deutscher Schachbund) as Home Assistant sensors.
 
-## Was es liefert
-- Ein Sensor pro Konfigurationseintrag (pro Spieler/NU‑ID).
-- Sensor‑State: die aktuelle DWZ‑Bewertung (`rating`).
-- Weiteren Werte werden als Entity‑Attribute bereitgestellt:
-  - `rating`: Die aktuelle DWZ (identisch mit dem `state`)
-  - `rating_week`: Woche der letzten Auswertung (z.B. "202617"); wie in der Datenquelle
-  - `rating_date`: letzter Tag dieser Woche im ISO-Format YYYY-MM-DD
-  - `index`: Laufende Nummer der aktuellen DWZ-Auswertung
-  - `active_club`: Im Deutschen Schachbund (DSB) darf eine Person nur eine einzige Spielberechtigung besitzen. Nur diese wird angezeigt.
-  - `firstname`: Vorname des Spielers
-  - `lastname`: Nachname des Spielers
-  - `full_name`: Voller Name des Spielers
-  - `gender`: Geschlecht (`MALE|FEMALE`)
-  - `birth_year`: Geburtsjahr des Spielers
-  - `fide_id`: FIDE-ID (falls vorhanden)
-  - `nuliga_id`: Die nuLiga-ID des Spielers
+## Quick overview
 
+- One sensor per configuration entry (per player / `nuLiga` ID).
+- Sensor state: the player's current DWZ rating (`rating`).
+- Additional information is exposed as entity attributes (see Attributes).
+
+## Attributes
+
+- `rating` — current DWZ rating (also entity state)
+- `rating_week` — evaluation week (e.g. "202617")
+- `rating_date` — ISO date (YYYY‑MM‑DD) of the Sunday's end of the evaluation week
+- `index` — sequential index of the DWZ evaluation
+- `active_club` — club holding the player's active licence
+- `firstname`, `lastname`, `full_name` — player's names
+- `gender` — `MALE` / `FEMALE`
+- `birth_year`, `fide_id`, `nuliga_id`
 
 ## Installation
-### Via HACS
 
-1. Öffne HACS → Integrationen.
-2. Klicke auf die drei Punkte oben rechts → "Custom repositories".
-3. Wähle `Integration` als Kategorie und füge das Repository `f-zappa/ha-dwz` hinzu.
-4. Suche in HACS nach "DWZ (Schachbund)" und installiere die Integration.
-5. Nach Installation Home Assistant neu starten und die Integration über Einstellungen → Integrationen hinzufügen.
+### Via HACS (recommended) 🧩
 
-Hinweis: HACS ermöglicht automatische Updates und vereinfacht die Installation für Endnutzer.
+1. Open HACS → Integrations.
+2. Click the three dots → "Custom repositories".
+3. Add repository `f-zappa/ha-dwz` (Category: Integration).
+4. Search HACS for "DWZ (Schachbund)" and install.
+5. Restart Home Assistant and add the integration via Settings → Integrations.
 
-### Manuell (Entwickler / lokale Installation)
-1. Kopiere das Verzeichnis `custom_components/dwz` in dein HA‑`custom_components` Ordner.
-2. Starte Home Assistant neu oder lade die Integration über die UI neu.
+### Manual (developer / local) 🧰
 
-## Konfiguration
-- Integration → Integration hinzufügen → `DWZ (Schachbund)`.
-- In der Konfigurationsoberfläche die `NU`‑ID angeben (z. B. `NU4168433`).
-- Die Config‑Flow validiert IDs und zeigt hilfreiche Fehlermeldungen (z. B. `not_found`).
+1. Copy the `custom_components/dwz` directory into your Home Assistant `custom_components` folder.
+2. Restart Home Assistant or reload integrations.
+
+
+## Configuration
+
+- Find the player on the DSB search page https://www.schachbund.de/dwz-spieler.html.
+  The search results show links which contain the nuLiga-ID.
+- In HA: Settings → Add integration → `DWZ (Schachbund)`.
+- Enter the player's nuLiga-ID (e.g. `NU4168433`).
+
+
+## More details
+
+- This integration uses the `dwzclient` Python package (PyPI: https://pypi.org/project/dwzclient/) 📦 `dwzclient` fetches data from the Deutsche Schachbund's public API (new API published July 2026).
+- This integration as well as `dwzclient` were developed with assistance from an AI coding assistant. All code, documentation and repository structure were created with AI support and have since been reviewed and manually refined — the result is not purely auto‑generated but contains hand‑crafted improvements and human review. ✍️
+
