@@ -15,7 +15,7 @@ from .helpers import extract_person_attributes
 
 
 class DWZConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Simple config flow allowing entering a Nuliga ID for the sensor."""
+    """Simple config flow allowing entering a nuLiga ID for the sensor."""
 
     VERSION = 1
 
@@ -33,7 +33,7 @@ class DWZConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 description_placeholders={"help_link": help_url},
             )
 
-        # attempt to validate the provided nuliga id via a temporary client
+        # attempt to validate the provided nuLiga ID via a temporary client
         nuliga_id = user_input.get(CONF_NULIGA_ID)
         try:
             # do not store a shared client from the config flow; if a shared

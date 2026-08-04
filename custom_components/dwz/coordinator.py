@@ -2,8 +2,8 @@
 Per-entry coordinator for DWZ integration.
 
 Each coordinator is responsible for fetching a single person's data
-identified by its `nuliga_id`. This simplifies lifecycle and error
-isolation compared to a single aggregator coordinating many ids.
+identified by its nuLiga ID (`nuliga_id`). This simplifies lifecycle and error
+isolation compared to a single aggregator coordinating many IDs.
 """
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ if TYPE_CHECKING:
 
 
 class DWZCoordinator(DataUpdateCoordinator):
-    """Coordinator that fetches data for a single nuliga_id."""
+    """Coordinator that fetches data for a single nuLiga ID (`nuliga_id`)."""
 
     def __init__(
         self,

@@ -1,7 +1,7 @@
 {
   "domain": "dwz",
   "name": "DWZ (Schachbund)",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "documentation": "https://github.com/f-zappa/ha-dwz",
   "issue_tracker": "https://github.com/f-zappa/ha-dwz/issues",
   "requirements": ["dwzclient>=0.1.3"],

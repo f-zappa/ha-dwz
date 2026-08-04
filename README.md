@@ -2,6 +2,13 @@
 
 This integration exposes DWZ data (Deutscher Schachbund) as Home Assistant sensors.
 
+![GitHub Release](https://img.shields.io/github/v/release/f-zappa/ha-dwz?style=flat-square)
+![GitHub License](https://img.shields.io/github/license/f-zappa/ha-dwz?style=flat-square)
+![GitHub Repo stars](https://img.shields.io/github/stars/f-zappa/ha-dwz?style=flat-square)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/f-zappa/ha-dwz/total?style=flat-square)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/f-zappa/ha-dwz/lint.yml?style=flat-square&label=lint)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/f-zappa/ha-dwz/validate.yml?style=flat-square&label=HACSfest)
+
 ## Quick overview
 ![alt text](image.png)
 - One sensor per configuration entry (per player / `nuLiga` ID).

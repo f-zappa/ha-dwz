@@ -5,10 +5,7 @@
         "title": "DWZ Konfiguration",
         "description": "Gib die nuLiga‑ID des Spielers ein. Du findest sie über die DWZ‑Suche: {help_link}. In den Suchergebnissen sind Links enthalten — kopiere die ID (z.B. 'NU4168433').",
         "data": {
-          "nuliga_id": {
-            "title": "NuLiga‑ID",
-            "description": "Beispiel: NU4168433 (inkl. 'NU' Präfix)."
-          }
+          "nuliga_id": "nuLiga‑ID"
         }
       }
     }
@@ -16,7 +13,7 @@
     "error": {
       "cannot_connect": "Verbindung zum Deutschen Schachbund fehlgeschlagen. Bitte Netzwerk prüfen und erneut versuchen.",
       "missing_dependency": "Erforderliche Abhängigkeit fehlt (dwzclient). Bitte Installationsschritte prüfen.",
-      "not_found": "Kein Spieler mit der angegebenen NuLiga‑ID gefunden. Bitte ID prüfen und erneut versuchen."
+      "not_found": "Kein Spieler mit der angegebenen nuLiga‑ID gefunden. Bitte ID prüfen und erneut versuchen."
     }
   }
 }

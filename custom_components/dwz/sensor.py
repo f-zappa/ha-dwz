@@ -51,7 +51,7 @@ class DWZSensor(CoordinatorEntity, SensorEntity):
         self._nuliga_id = entry.data.get(CONF_NULIGA_ID)
         self._state: Any = None
         self._extra_attrs: dict = {}
-        # set a stable unique_id from the nuliga id in the config entry
+        # set a stable unique_id from the nuLiga ID in the config entry
         self._attr_unique_id = f"{DOMAIN}_{self._nuliga_id}"
         # Initial name/icon: prefer the config entry title if present,
         # otherwise a predictable fallback. We will consult the entity
