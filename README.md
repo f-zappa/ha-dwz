@@ -30,13 +30,18 @@ This integration exposes DWZ data (Deutscher Schachbund) as Home Assistant senso
 
 ### Via HACS (recommended) 🧩
 
+#### Use this link to add "DWZ (Schachbund)" to your Home Assistant instance:
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=f-zappa&repository=ha-dwz&category=Integration)
+
+#### Alternatively follow this steps:
+
 1. Open HACS → Integrations.
 2. Click the three dots → "Custom repositories".
 3. Add repository `f-zappa/ha-dwz` (Category: Integration).
 4. Search HACS for "DWZ (Schachbund)" and install.
 5. Restart Home Assistant and add the integration via Settings → Integrations.
 
-### Manual (developer / local) 🧰
+### Manual (without HACS)) 🧰
 
 1. Copy the `custom_components/dwz` directory into your Home Assistant `custom_components` folder.
 2. Restart Home Assistant or reload integrations.
