@@ -45,6 +45,6 @@ This integration exposes DWZ data (Deutscher Schachbund) as Home Assistant senso
 
 ## More details
 
-- This integration uses the `dwzclient` Python package (PyPI: https://pypi.org/project/dwzclient/) 📦 `dwzclient` fetches data from the Deutsche Schachbund's public API (new API published July 2026).
-- This integration as well as `dwzclient` were developed with assistance from an AI coding assistant. All code, documentation and repository structure were created with AI support and have since been reviewed and manually refined — the result is not purely auto‑generated but contains hand‑crafted improvements and human review. ✍️
+- 📦 This integration uses the `dwzclient` Python package (PyPI: https://pypi.org/project/dwzclient/)  `dwzclient` fetches data from the Deutsche Schachbund's public API (new API published July 2026).
+- 🤖+👨🏼‍💻 This integration as well as `dwzclient` were developed with assistance from an AI coding assistant. All code, documentation and repository structure were created with AI support and have since been reviewed and manually refined — the result is not purely auto‑generated but contains hand‑crafted improvements and human review. ✍️
 
