@@ -1,13 +1,13 @@
 {
   "domain": "dwz",
   "name": "DWZ (Schachbund)",
-  "version": "0.1.3",
-  "documentation": "https://github.com/f-zappa/ha-dwz",
-  "issue_tracker": "https://github.com/f-zappa/ha-dwz/issues",
-  "integration_type": "service",
-  "requirements": ["dwzclient>=0.1.3"],
-  "dependencies": [],
   "codeowners": ["@f-zappa"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/f-zappa/ha-dwz",
+  "integration_type": "service",
   "iot_class": "cloud_polling",
-  "config_flow": true
+  "issue_tracker": "https://github.com/f-zappa/ha-dwz/issues",
+  "requirements": ["dwzclient>=0.1.3"],
+  "version": "0.1.3"
 }
