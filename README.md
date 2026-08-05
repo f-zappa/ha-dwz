@@ -2,12 +2,12 @@
 
 This integration exposes DWZ data (Deutscher Schachbund) as Home Assistant sensors.
 
-![GitHub Release](https://img.shields.io/github/v/release/f-zappa/ha-dwz?style=flat-square)
-![GitHub License](https://img.shields.io/github/license/f-zappa/ha-dwz?style=flat-square)
+[![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg?style=flat-square)](https://www.hacs.xyz/docs/faq/custom_repositories/)
+[![MIT License](https://img.shields.io/github/license/f-zappa/ha-dwz?style=flat-square)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/f-zappa/ha-dwz?style=flat-square)](https://github.com/f-zappa/ha-dwz/releases/latest)
+[![Issues](https://img.shields.io/github/issues/f-zappa/ha-dwz?style=flat-square)](https://github.com/f-zappa/ha-dwz/issues)
 ![GitHub Repo stars](https://img.shields.io/github/stars/f-zappa/ha-dwz?style=flat-square)
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/f-zappa/ha-dwz/total?style=flat-square)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/f-zappa/ha-dwz/lint.yml?style=flat-square&label=lint)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/f-zappa/ha-dwz/validate.yml?style=flat-square&label=HACSfest)
+[![hassfest](https://img.shields.io/github/actions/workflow/status/f-zappa/ha-dwz/validate.yml?style=flat-square&label=hassfest)](https://github.com/f-zappa/ha-dwz/actions/workflows/validate.yml)
 
 ## Quick overview
 ![alt text](image.png)
@@ -49,10 +49,10 @@ This integration exposes DWZ data (Deutscher Schachbund) as Home Assistant senso
 
 ## Configuration
 
-- Find the player on the DSB search page https://www.schachbund.de/dwz-spieler.html.
-  The search results show links which contain the nuLiga-ID.
-- In HA: Settings → Add integration → `DWZ (Schachbund)`.
-- Enter the player's nuLiga-ID (e.g. `NU4168433`).
+1. Find the player on the DSB search page https://www.schachbund.de/dwz-spieler.html.
+   The search result is a link. This link contains the nuLiga-ID.
+2. In HA: Settings → Add integration → `DWZ (Schachbund)`.
+3. Enter the player's nuLiga-ID (e.g. `NU4168433`).
 
 
 ## More details
