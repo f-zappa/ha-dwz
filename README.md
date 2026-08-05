@@ -6,8 +6,12 @@ This integration exposes DWZ data (Deutscher Schachbund) as Home Assistant senso
 [![MIT License](https://img.shields.io/github/license/f-zappa/ha-dwz?style=flat-square)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/f-zappa/ha-dwz?style=flat-square)](https://github.com/f-zappa/ha-dwz/releases/latest)
 [![Issues](https://img.shields.io/github/issues/f-zappa/ha-dwz?style=flat-square)](https://github.com/f-zappa/ha-dwz/issues)
+[![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg?style=flat-square)](https://www.hacs.xyz/docs/faq/custom_repositories/)
+[![MIT License](https://img.shields.io/github/license/f-zappa/ha-dwz?style=flat-square)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/f-zappa/ha-dwz?style=flat-square)](https://github.com/f-zappa/ha-dwz/releases/latest)
+[![Issues](https://img.shields.io/github/issues/f-zappa/ha-dwz?style=flat-square)](https://github.com/f-zappa/ha-dwz/issues)
 ![GitHub Repo stars](https://img.shields.io/github/stars/f-zappa/ha-dwz?style=flat-square)
-[![hassfest](https://img.shields.io/github/actions/workflow/status/f-zappa/ha-dwz/validate.yml?style=flat-square&label=hassfest)](https://github.com/f-zappa/ha-dwz/actions/workflows/validate.yml)
+[![Validation](https://img.shields.io/github/actions/workflow/status/f-zappa/ha-dwz/validate.yml?style=flat-square&label=Validation)](https://github.com/f-zappa/ha-dwz/actions/workflows/validate.yml)
 
 ## Quick overview
 ![alt text](image.png)
