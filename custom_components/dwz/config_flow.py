@@ -2,19 +2,23 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import aiohttp
-from dwzclient import DWZError
 from homeassistant import config_entries
 from voluptuous import Required, Schema
+
+from dwzclient import DWZError
 
 from .client import async_get_dwzclient
 from .const import CONF_NULIGA_ID, DOMAIN
 from .helpers import extract_person_attributes
 
+if TYPE_CHECKING:
+    from dwzclient import DWZClient, Person
 
-class DWZConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+
+class DWZConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore[call-arg]
     """Simple config flow allowing entering a nuLiga ID for the sensor."""
 
     VERSION = 1
@@ -35,42 +39,35 @@ class DWZConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         # attempt to validate the provided nuLiga ID via a temporary client
         nuliga_id = user_input.get(CONF_NULIGA_ID)
+        if nuliga_id is None:
+            return self.async_show_form(
+                step_id="user",
+                data_schema=self._get_schema(),
+                description_placeholders={"help_link": help_url},
+            )
         try:
             # do not store a shared client from the config flow; if a shared
             # client already exists it will be returned, otherwise a fresh
             # client instance is created for validation and not saved.
-            client: Any = await async_get_dwzclient(self.hass, store=False)
-            person: Any = await client.get_person(nuliga_id)
+            client: DWZClient = await async_get_dwzclient(self.hass, store=False)
+            person: Person | None = await client.get_person(nuliga_id)
         except RuntimeError:
             # missing optional dependency (dwzclient)
             errors["base"] = "missing_dependency"
-            return self.async_show_form(
-                step_id="user",
-                data_schema=self._get_schema(),
-                errors=errors,
-                description_placeholders={"help_link": help_url},
-            )
         except DWZError:
             # DWZ client indicates the player/id was not found or invalid
             errors[CONF_NULIGA_ID] = "not_found"
-            return self.async_show_form(
-                step_id="user",
-                data_schema=self._get_schema(),
-                errors=errors,
-                description_placeholders={"help_link": help_url},
-            )
         except TimeoutError, aiohttp.ClientError:
             # network / client errors (e.g. connection problems, timeouts)
             errors["base"] = "cannot_connect"
-            return self.async_show_form(
-                step_id="user",
-                data_schema=self._get_schema(),
-                errors=errors,
-                description_placeholders={"help_link": help_url},
-            )
 
-        if not person:
+        # If the person wasn't found and no other errors occurred, mark it
+        # as `not_found`. Then show the form once with any accumulated
+        # errors.
+        if not errors and not person:
             errors[CONF_NULIGA_ID] = "not_found"
+
+        if errors:
             return self.async_show_form(
                 step_id="user",
                 data_schema=self._get_schema(),
@@ -84,7 +81,7 @@ class DWZConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         # choose a sensible title: prefer the fetched full name, fall back
         # to a stable `dwz_<id>` placeholder so the entity_id is
         # predictable.
-        attrs = extract_person_attributes(person or {})
+        attrs = extract_person_attributes(person)
         title_name = attrs.get("full_name") or nuliga_id
         title = f"DWZ {title_name}"
 

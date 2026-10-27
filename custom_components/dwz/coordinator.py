@@ -8,11 +8,12 @@ isolation compared to a single aggregator coordinating many IDs.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
-from dwzclient import DWZError
 from homeassistant.exceptions import ConfigEntryNotReady
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+
+from dwzclient import DWZError  # type: ignore[import]
 
 from .client import async_get_dwzclient
 from .const import DOMAIN, LOGGER
@@ -20,11 +21,12 @@ from .const import DOMAIN, LOGGER
 if TYPE_CHECKING:
     from datetime import timedelta
 
-    from dwzclient import DWZClient
     from homeassistant.core import HomeAssistant
 
+    from dwzclient import DWZClient, Person
 
-class DWZCoordinator(DataUpdateCoordinator):
+
+class DWZCoordinator(DataUpdateCoordinator["Person | None"]):
     """Coordinator that fetches data for a single nuLiga ID (`nuliga_id`)."""
 
     def __init__(
@@ -68,10 +70,10 @@ class DWZCoordinator(DataUpdateCoordinator):
 
         return coord
 
-    async def _async_update_data(self) -> Any:
+    async def _async_update_data(self) -> Person | None:
         """Fetch the person for this coordinator's nuliga_id."""
         try:
             return await self.client.get_person(self.nuliga_id)
         except DWZError as exc:
-            LOGGER.exception("Error fetching DWZ for %s: %s", self.nuliga_id, exc)
-            return None
+            msg = f"Error fetching DWZ for {self.nuliga_id}: {exc}"
+            raise UpdateFailed(msg) from exc
