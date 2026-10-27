@@ -57,7 +57,7 @@ class DWZConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore[c
         except DWZError:
             # DWZ client indicates the player/id was not found or invalid
             errors[CONF_NULIGA_ID] = "not_found"
-        except (TimeoutError, aiohttp.ClientError):
+        except TimeoutError, aiohttp.ClientError:
             # network / client errors (e.g. connection problems, timeouts)
             errors["base"] = "cannot_connect"
 

@@ -76,6 +76,4 @@ class DWZCoordinator(DataUpdateCoordinator["Person | None"]):
             return await self.client.get_person(self.nuliga_id)
         except DWZError as exc:
             msg = f"Error fetching DWZ for {self.nuliga_id}: {exc}"
-            raise UpdateFailed(
-                msg
-            ) from exc
+            raise UpdateFailed(msg) from exc
