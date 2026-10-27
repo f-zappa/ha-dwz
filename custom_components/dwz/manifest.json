@@ -1,7 +1,7 @@
 {
   "domain": "dwz",
   "name": "DWZ (Schachbund)",
-  "categories": ["media_entertainment.gaming"],
+  "categories": ["media_entertainment"],
   "codeowners": ["@f-zappa"],
   "config_flow": true,
   "dependencies": [],
