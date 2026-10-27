@@ -4,6 +4,7 @@ __pycache__
 *.egg-info
 */build/*
 */dist/*
+dwzclient
 
 
 # misc
@@ -16,3 +17,5 @@ coverage.xml
 # Home Assistant configuration
 config/*
 !config/configuration.yaml
+.devcontainer-lock.json
+.gitignore

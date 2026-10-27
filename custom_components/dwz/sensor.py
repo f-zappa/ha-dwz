@@ -18,6 +18,8 @@ if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
     from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
+    from dwzclient import Person
+
 
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
@@ -31,7 +33,9 @@ async def async_setup_entry(
         )
         return
 
-    coordinator: DataUpdateCoordinator | None = domain_store.get(entry.entry_id)
+    coordinator: DataUpdateCoordinator[Person | None] | None = domain_store.get(
+        entry.entry_id
+    )
     if coordinator is None:
         LOGGER.error(
             "Coordinator for entry %s not found; aborting sensor setup", entry.entry_id
@@ -44,7 +48,9 @@ async def async_setup_entry(
 class DWZSensor(CoordinatorEntity, SensorEntity):
     """Representation of a DWZ person as a sensor backed by a coordinator."""
 
-    def __init__(self, coordinator: DataUpdateCoordinator, entry: ConfigEntry) -> None:
+    def __init__(
+        self, coordinator: DataUpdateCoordinator[Person | None], entry: ConfigEntry
+    ) -> None:
         """Initialize DWZ sensor."""
         super().__init__(coordinator)
         self._entry = entry
@@ -65,7 +71,7 @@ class DWZSensor(CoordinatorEntity, SensorEntity):
 
     def _update_from_data(self) -> None:
         person = self.coordinator.data or None
-        attrs = extract_person_attributes(person or {})
+        attrs = extract_person_attributes(person)
         self._state = attrs.get("rating")
         self._extra_attrs = attrs
 

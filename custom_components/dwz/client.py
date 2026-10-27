@@ -9,8 +9,9 @@ from __future__ import annotations
 
 from typing import Any
 
-from dwzclient import DWZClient
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+
+from dwzclient import DWZClient
 
 from .const import DOMAIN
 
