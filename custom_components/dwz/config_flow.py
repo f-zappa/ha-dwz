@@ -5,10 +5,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any
 
 import aiohttp
+from dwzclient import DWZError
 from homeassistant import config_entries
 from voluptuous import Required, Schema
-
-from dwzclient import DWZError
 
 from .client import async_get_dwzclient
 from .const import CONF_NULIGA_ID, DOMAIN

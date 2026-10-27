@@ -44,7 +44,18 @@ People *love* thorough bug reports. I'm not even kidding.
 
 ## Use a Consistent Coding Style
 
-Use [black](https://github.com/ambv/black) to make sure the code follows the style.
+Use [Ruff](https://docs.astral.sh/ruff/) to format and lint the code.
+Install the pinned version from `requirements_lint.txt` and run `scripts/lint`.
+To run the same checks as CI without changing files:
+
+```shell
+python3 -m ruff check .
+python3 -m ruff format . --check
+```
+
+The Ruff configuration explicitly classifies `dwzclient` as a third-party library
+so import sorting stays consistent with CI even when local type stubs are present
+in the ignored `dwzclient/` directory.
 
 ## Test your code modification
 

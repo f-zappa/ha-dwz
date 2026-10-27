@@ -18,6 +18,9 @@ ignore = [
 [lint.flake8-pytest-style]
 fixture-parentheses = false
 
+[lint.isort]
+known-third-party = ["dwzclient"]
+
 [lint.pyupgrade]
 keep-runtime-typing = true
 

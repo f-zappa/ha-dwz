@@ -14,11 +14,10 @@ from .const import CONF_NULIGA_ID, DOMAIN, LOGGER
 from .helpers import extract_person_attributes
 
 if TYPE_CHECKING:
+    from dwzclient import Person
     from homeassistant.config_entries import ConfigEntry
     from homeassistant.core import HomeAssistant
     from homeassistant.helpers.entity_platform import AddEntitiesCallback
-
-    from dwzclient import Person
 
 
 async def async_setup_entry(

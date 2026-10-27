@@ -10,10 +10,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from dwzclient import DWZError  # type: ignore[import]
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
-
-from dwzclient import DWZError  # type: ignore[import]
 
 from .client import async_get_dwzclient
 from .const import DOMAIN, LOGGER
@@ -21,9 +20,8 @@ from .const import DOMAIN, LOGGER
 if TYPE_CHECKING:
     from datetime import timedelta
 
-    from homeassistant.core import HomeAssistant
-
     from dwzclient import DWZClient, Person
+    from homeassistant.core import HomeAssistant
 
 
 class DWZCoordinator(DataUpdateCoordinator["Person | None"]):
