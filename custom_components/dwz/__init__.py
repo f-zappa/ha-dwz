@@ -53,9 +53,10 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             if inspect.isawaitable(result):
                 await result
 
-    # if no entries remain for this domain, remove mapping and client refs
-    if not domain_store:
-        hass.data.pop(DOMAIN, None)
+    # The shared client is stored in the same mapping, so ignore it when
+    # checking whether any config entries remain.
+    if not any(key != "shared_client" for key in domain_store):
         await async_remove_client(hass)
+        hass.data.pop(DOMAIN, None)
 
     return True
